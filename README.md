@@ -11,8 +11,8 @@ This repo contains some links to various content that was presented at [HashiCon
 - [AWS Packer images](https://github.com/Neutrollized/packer-vm-templates/tree/main/aws)
 
 #### Terraform deployment
-- [Nomad on GCP](https://github.com/Neutrollized/hashicorp-nomad-on-gcp)
-- [Nomad on AWS](https://github.com/Neutrollized/hashicorp-nomad-on-aws)
+- [Nomad on GCP GCE](https://github.com/Neutrollized/nomad-on-gcp-gce)
+- [Nomad on AWS EC2](https://github.com/Neutrollized/nomad-on-aws-ec2)
 - [Vault on GCP Cloud Run](https://github.com/Neutrollized/hashicorp-vault-with-cloud-run)
 
 
