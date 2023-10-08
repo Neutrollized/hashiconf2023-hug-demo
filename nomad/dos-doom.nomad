@@ -18,8 +18,8 @@ job "dos-doom" {
     }
 
     service {
-      name     = "redis-server"
-      port     = "db"
+      name     = "dos-doom"
+      port     = "web"
       provider = "consul"
       tags     = ["doom", "emulator"]
 
