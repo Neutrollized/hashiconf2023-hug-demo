@@ -1,5 +1,5 @@
 job "http-echo-gui" {
-  datacenters = ["gcp-east"]
+  datacenters = ["gcp-ca-east"]
 
   group "echo" {
   
@@ -26,7 +26,7 @@ job "http-echo-gui" {
         
         tags = [
           "heartbeat",
-          "urlprefix-/http-echo",
+          "urlprefix-/",
         ]
 
         check {

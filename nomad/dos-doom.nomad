@@ -1,5 +1,5 @@
 job "dos-doom" {
-  datacenters = ["gcp-east"]
+  datacenters = ["gcp-ca-east"]
 
   group "doom" {
     count = 1

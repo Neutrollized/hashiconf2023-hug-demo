@@ -1,5 +1,5 @@
 job "redis-client-v2" {
-  datacenters = ["gcp-east"]
+  datacenters = ["gcp-ca-east"]
 
   group "redis" {
     count = 1

@@ -1,5 +1,5 @@
 job "spring-music" {
-  datacenters = ["gcp-east"]
+  datacenters = ["gcp-ca-east"]
   priority    = 80
 
   group "spring-music" {

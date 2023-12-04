@@ -16,7 +16,7 @@ This repo contains some links to various content that was presented at [HashiCon
 - [Vault on GCP Cloud Run](https://github.com/Neutrollized/hashicorp-vault-with-cloud-run)
 
 
-### Additional setup steps for WAN Federation
+## Additional setup steps for WAN Federation
 You will want to use the same Gossip key across your Consul clusters (but not a requirement for Nomad).  
 
 You can perform WAN federation in one of two ways:
@@ -27,8 +27,8 @@ You can perform WAN federation in one of two ways:
 An optional (easier) approach is to provision *both* Nomad clusters in separate regions within a Google Cloud VPC.  Subnets within the same Google VPC can communicate internally regardless of region (this is not the case with AWS and Azure).  
 
 
-## CA & SSL certs (highly recommended)
-This is an optional step if you wan to try out [Consul Connect](https://developer.hashicorp.com/consul/docs/connect)'s features.  Consul Connect is a service mesh and hence you will need certs for the mTLS piece. I personally hate having to deal with (generating) certs, but luckily the ability create certs easily built into the [Consul](https://developer.hashicorp.com/consul/commands/tls) and [Nomad](https://developer.hashicorp.com/nomad/docs/commands/tls) binaries.  This is the approach I will be taking, but if you wish to generate certs the hard way, here's a link to my co-presenter, [Jacob Mammoliti's Nomad the Hard Way](https://github.com/jacobmammoliti/nomad-the-hard-way/blob/main/docs/04-certificate-authority.md) repo.
+### CA & SSL certs (highly recommended)
+This is an optional step if you want to try out [Consul Connect](https://developer.hashicorp.com/consul/docs/connect)'s features.  Consul Connect is a service mesh and hence you will need certs for the mTLS piece. I personally hate having to deal with (generating) certs, but luckily the ability create certs easily built into the [Consul](https://developer.hashicorp.com/consul/commands/tls) and [Nomad](https://developer.hashicorp.com/nomad/docs/commands/tls) binaries.  This is the approach I will be taking, but if you wish to generate certs the hard way, here's a link to my co-presenter, [Jacob Mammoliti's Nomad the Hard Way](https://github.com/jacobmammoliti/nomad-the-hard-way/blob/main/docs/04-certificate-authority.md) repo.
 
 ### Consul
 #### CA certs
@@ -42,3 +42,21 @@ consul tls cert create -server -dc [DATACENTER] -additional-ipaddress=[LOAD_BALA
 ```
 
 You will need to then distribute the certs (i.e. `scp`). On the server you will need to provide the CA cert and the server certs.  On the client side, you need only the CA cert as we will be leveraging Consul's [Auto-Encryption](https://developer.hashicorp.com/consul/tutorials/security/tls-encryption-secure#client-certificate-distribution) feature.
+
+
+### Nomad
+To join multi-region federation, just do:
+
+```console
+nomad server join [SECONDARY_NOMAD_SERVER_INTERNAL_IP]:4648
+```
+
+#### Replication tokens
+For the non-primary DCs, you see to set `server.authoritative_region` and `acl.replication_token`, which you can get by running (as an example):
+
+```console
+nomad acl token create \
+  -type="management" \
+  -global=true \
+  -name="EU Central cluster replication token"
+```
